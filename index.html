@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <!-- Bootstrap CSS -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css" />
+  <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+
+    <style>
+      .col-type { width: 24%; }
+      .col-freq { width: 17%; }
+      .col-force { width: 15%; }
+      .col-number { width: 18%; }
+      .col-qty { width: 13%; }
+      .col-action { width: 13%; } 
+    </style>
+  </head>
+  <body>
+    <br>
+    <h1 style="text-align:center;padding-top:5px;padding-bottom:8px;">探針數量統計</h1>
+    <hr>
+    <br>
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-2">
+    <div class="card">
+      <div class="card-body">
+    
+      <form id="data-form" class="mt-4">
+        <div class="form-group mb-2">
+          <label for="type">型號</label>
+          <input name="type" class="form-control" placeholder="Type" required>
+        </div>
+        <div class="form-group mb-2">
+          <label for="freq">共振頻率 (kHz)</label>
+          <input name="freq" class="form-control" placeholder="Freq" required>
+        </div>
+        <div class="form-group mb-2">
+          <label for="force">力常數 (N/m)</label>
+          <input name="force" class="form-control" placeholder="Force constant" required>
+        </div>
+        <div class="form-group mb-2">
+          <label for="number">Serial number</label>
+          <input name="number" class="form-control" placeholder="Number" required>
+        </div>
+        <div class="form-group mb-2">
+          <label for="qty">剩餘數量</label>
+          <input name="qty" class="form-control" placeholder="Qty" required>
+        </div>
+        <input type="hidden" name="id"> <!-- 隱藏欄位：用於更新時帶入 ID -->
+        <button type="submit" class="btn btn-primary">新增</button>
+      </form>
+    </div>
+    </div>
+    </div>
+  
+
+<div class="col-md-10">
+    <table class="table mt-4" id="mytable" class="display">
+      <thead>
+        <tr>
+          
+          <th class="col-type">型號</th>
+          <th class="col-freq">共振頻率 (kHz)</th>
+          <th class="col-force">力常數 (N/m)</th>
+          <th class="col-number">Serial number</th>
+          <th class="col-qty">剩餘數量</th>
+          <th class="col-action">編輯/刪除</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- 資料列會被 JS 插入 -->
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+
+
+<?!= include('js'); ?>
+
+  </body>
+</html>
+

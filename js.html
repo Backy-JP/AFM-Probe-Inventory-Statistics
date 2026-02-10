@@ -1,0 +1,92 @@
+<script>
+  let table;
+  let isEditing = false;
+
+  // 初始化 DataTable
+  $(document).ready(function () {
+    table = $('#mytable').DataTable();
+    loadData();
+  });
+
+  // 載入資料
+  function loadData() {
+    google.script.run.withSuccessHandler(displayData).getData();
+  }
+
+  // 顯示資料到表格中（使用 DataTable API）
+  function displayData(customers) {
+    table.clear(); // 清空表格資料
+
+    customers.forEach(row => {
+      const id = row[0];
+
+      const actionBtns = `
+        <button class="btn btn-sm btn-warning me-1" onclick='fillFormForEdit(${JSON.stringify(row)})'>編輯</button>
+        <button class="btn btn-sm btn-danger" onclick='deleteCustomer("${id}")'>刪除</button>
+      `;
+      table.row.add([
+        
+        row[1], // Type
+        row[2], // Freq
+        row[3], // Force constant
+        row[4], // Number
+        row[5], // Qty
+        actionBtns // 操作按鈕
+      ]);
+    });
+
+    table.draw(); // 重繪表格
+    resetForm();
+  }
+
+  // 表單填入舊資料以供編輯
+  function fillFormForEdit(row) {
+    const form = document.getElementById("data-form");
+    form.type.value = row[1];
+    form.freq.value = row[2];
+    form.force.value = row[3];
+    form.number.value = row[4];
+    form.qty.value = row[5];
+    form.id.value = row[0];
+
+    form.querySelector("button").textContent = "更新";
+    isEditing = true;
+  }
+
+    // 刪除資料
+  function deleteCustomer(id) {
+    google.script.run.withSuccessHandler(displayData).deleteCustomer(id);
+  }
+
+  // 重設表單
+  function resetForm() {
+    const form = document.getElementById("data-form");
+    form.reset();
+    form.id.value = "";
+    form.querySelector("button").textContent = "新增";
+    isEditing = false;
+  }
+
+  // 表單送出事件處理（新增或更新）
+  document.getElementById("data-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(this);
+    const data = {
+      id: formData.get("id"),
+      type: formData.get("type"),
+      freq: formData.get("freq"),
+      force: formData.get("force"),
+      number: formData.get("number"),
+      qty: formData.get("qty")
+    };
+
+    if (data.id) {
+      google.script.run.withSuccessHandler(displayData).updateCustomerData(data);
+    } else {
+      google.script.run.withSuccessHandler(displayData).addData(data);
+    }
+
+    this.reset();
+    isEditing = false;
+  });
+</script>
