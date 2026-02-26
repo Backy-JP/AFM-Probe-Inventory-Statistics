@@ -135,7 +135,11 @@ AFM-Probe-Inventory-Statistics/
 
 ## 👤 作者
 
-本系統由實驗室團隊開發，專為解決 AFM 探針庫存管理需求而設計。
+**開發者**：Backy-JP  
+**Email**：jiapei311157@gmail.com  
+**GitHub**：[@Backy-JP](https://github.com/Backy-JP)  
+
+本系統專為解決實驗室 AFM 探針庫存管理需求而設計。
 
 **版本**：1.0.0  
 **最後更新**：2026-02-26  
